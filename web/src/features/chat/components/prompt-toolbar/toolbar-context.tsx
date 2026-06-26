@@ -49,11 +49,13 @@ export const ToolbarContextIndicator = memo(
               "transition-colors cursor-default border",
               "bg-transparent text-muted-foreground border-border/60",
               "hover:text-foreground hover:border-border",
+              "max-sm:h-6 max-sm:px-2",
               className,
             )}
           >
             <ContextProgressIcon usedPercent={usedPercent} size={14} />
-            <span>{usagePercent.toFixed(1)}% context</span>
+            <span className="max-sm:hidden">{usagePercent.toFixed(1)}% context</span>
+            <span className="hidden max-sm:inline">{Math.round(usagePercent)}%</span>
           </button>
         </HoverCardTrigger>
         <HoverCardContent

@@ -73,15 +73,18 @@ export const ToolbarTodoTab = memo(function ToolbarTodoTabComponent({
       type="button"
       onClick={onToggle}
       className={cn(
-        "flex items-center gap-1.5 h-7 px-2.5 rounded-full text-xs font-medium transition-colors cursor-pointer border",
+        "flex items-center gap-1.5 h-7 px-2.5 rounded-full text-xs font-medium transition-colors cursor-pointer border max-sm:h-6 max-sm:px-2",
         isActive
           ? "bg-secondary text-foreground border-border shadow-sm"
           : "bg-transparent text-muted-foreground border-border/60 hover:text-foreground hover:border-border",
       )}
     >
       <CheckSquare2Icon className="size-3" />
-      <span>
+      <span className="max-sm:hidden">
         {doneCount}/{totalCount} Tasks
+      </span>
+      <span className="hidden max-sm:inline">
+        {doneCount}/{totalCount}
       </span>
       <ChevronDownIcon
         className={cn(

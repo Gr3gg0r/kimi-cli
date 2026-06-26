@@ -407,7 +407,7 @@ export const CodeBlock = ({
               "overflow-auto",
               isTall && !isExpanded
                 ? "max-h-[200px] overflow-hidden"
-                : "max-h-[60vh]",
+                : "max-h-[60dvh]",
               isOverflowing && isExpanded && "overscroll-contain",
             )}
           >

@@ -1127,7 +1127,7 @@ export const SessionsSidebar = memo(function SessionsSidebarComponent({
                     ) : archivedSessions.length === 0 ? (
                       <p className="px-3 py-3 text-xs text-muted-foreground">No archived sessions</p>
                     ) : (
-                      <div className="space-y-1 px-1 pb-2 max-h-[50vh] overflow-y-auto">
+                      <div className="space-y-1 px-1 pb-2 max-h-[50dvh] overflow-y-auto">
                         <ul className="space-y-1">
                           {archivedSessions.map((session) => {
                             const isActive = session.id === selectedSessionId;

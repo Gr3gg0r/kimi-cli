@@ -317,6 +317,16 @@ export function ChatWorkspaceContainer({
     sendSetPlanMode(enabled);
   }, [sendSetPlanMode]);
 
+  const handleSendNow = useCallback(() => {
+    if (status === "streaming") {
+      cancelStream();
+    }
+    const next = dequeue();
+    if (next) {
+      sendMessage(next.text);
+    }
+  }, [status, cancelStream, dequeue, sendMessage]);
+
   const handleForkSession = useCallback(
     async (turnIndex: number) => {
       if (!(selectedSessionId && onForkSession)) {
@@ -389,6 +399,7 @@ export function ChatWorkspaceContainer({
       onPlanModeChange={handlePlanModeChange}
       errorMessage={streamError?.message}
       onForkSession={onForkSession ? handleForkSession : undefined}
+      onSendNow={handleSendNow}
     />
   );
 }

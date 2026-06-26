@@ -18,7 +18,7 @@ function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
   const errorStack = error instanceof Error ? error.stack : undefined;
 
   return (
-    <div className="flex h-screen w-full items-center justify-center bg-background">
+    <div className="flex h-[100dvh] w-full items-center justify-center bg-background">
       <div className="flex max-w-md flex-col items-center gap-4 rounded-lg border border-destructive/20 bg-destructive/5 p-8 text-center">
         <AlertTriangle className="h-12 w-12 text-destructive" />
         <h2 className="text-xl font-semibold text-foreground">

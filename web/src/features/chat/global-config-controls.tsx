@@ -201,7 +201,7 @@ export function GlobalConfigControls({
   const attachments = usePromptInputAttachments();
 
   return (
-    <div className={cn("flex items-center gap-1", className)}>
+    <div className={cn("flex flex-wrap items-center gap-1", className)}>
       <Button
         variant="ghost"
         size="icon"

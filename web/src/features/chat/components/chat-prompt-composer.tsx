@@ -69,6 +69,7 @@ type ChatPromptComposerProps = {
   usedTokens?: number;
   maxTokens?: number;
   tokenUsage?: TokenUsage | null;
+  onSendNow?: () => void;
 };
 
 export const ChatPromptComposer = memo(function ChatPromptComposerComponent({
@@ -92,6 +93,7 @@ export const ChatPromptComposer = memo(function ChatPromptComposerComponent({
   usedTokens,
   maxTokens,
   tokenUsage,
+  onSendNow,
 }: ChatPromptComposerProps): ReactElement {
   const promptController = usePromptInputController();
   const attachmentContext = usePromptInputAttachments();
@@ -203,6 +205,7 @@ export const ChatPromptComposer = memo(function ChatPromptComposerComponent({
         usedTokens={usedTokens}
         maxTokens={maxTokens}
         tokenUsage={tokenUsage}
+        onSendNow={onSendNow}
       />
 
       <PromptInput
@@ -250,8 +253,8 @@ export const ChatPromptComposer = memo(function ChatPromptComposerComponent({
                 className={cn(
                   "transition-all duration-200 pr-8",
                   isExpanded
-                    ? "min-h-[220px] max-h-[60vh] sm:min-h-[300px]"
-                    : "min-h-10 max-h-36 sm:min-h-16 sm:max-h-48",
+                    ? "min-h-[220px] max-h-[60dvh] sm:min-h-[300px]"
+                    : "min-h-16 max-h-36 sm:max-h-48",
                 )}
                 placeholder={
                   !currentSession

@@ -175,7 +175,7 @@ export function ApprovalDialog({
           "border-l border-l-blue-400/50",
           "rounded-lg px-4 py-3",
           "transition-all duration-200",
-          "max-h-[70vh]",
+          "max-h-[70dvh]",
           "overflow-hidden",
         )}
       >

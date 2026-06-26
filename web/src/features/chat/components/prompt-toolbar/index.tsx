@@ -31,6 +31,7 @@ type PromptToolbarProps = {
   usedTokens?: number;
   maxTokens?: number;
   tokenUsage?: TokenUsage | null;
+  onSendNow?: () => void;
 };
 
 // ─── Main toolbar ────────────────────────────────────────────
@@ -45,6 +46,7 @@ export const PromptToolbar = memo(function PromptToolbarComponent({
   usedTokens,
   maxTokens,
   tokenUsage,
+  onSendNow,
 }: PromptToolbarProps): ReactElement | null {
   const queue = useQueueStore((s) => s.queue);
   const todoItems = useToolEventsStore((s) => s.todoItems);
@@ -87,7 +89,7 @@ export const PromptToolbar = memo(function PromptToolbarComponent({
           "rounded-md border border-border bg-background",
           activeTab !== "changes" && "max-h-32 overflow-y-auto py-1 px-0.5",
         )}>
-          {activeTab === "queue" && <ToolbarQueuePanel queue={queue} />}
+          {activeTab === "queue" && <ToolbarQueuePanel queue={queue} onSendNow={onSendNow} />}
           {activeTab === "changes" && stats && (
             <ToolbarChangesPanel stats={stats} workDir={workDir} />
           )}
@@ -98,8 +100,8 @@ export const PromptToolbar = memo(function PromptToolbarComponent({
       )}
 
       {/* ── Tab bar ── */}
-      <div className="flex items-center gap-1.5 px-1">
-{activityStatus && (
+      <div className="flex flex-wrap items-center gap-1.5 px-1">
+        {activityStatus && (
           <ToolbarActivityIndicator activity={activityStatus} />
         )}
 

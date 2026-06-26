@@ -642,12 +642,12 @@ export function MessageAttachment({
               {isImage ? (
                 <img
                   alt={filename || "attachment"}
-                  className="block max-h-[88vh] w-full object-contain"
+                  className="block max-h-[88dvh] w-full object-contain"
                   src={url}
                 />
               ) : isVideo ? (
                 <video
-                  className="block max-h-[88vh] w-full object-contain"
+                  className="block max-h-[88dvh] w-full object-contain"
                   src={url}
                   controls
                   poster={videoPoster ?? undefined}
@@ -655,7 +655,7 @@ export function MessageAttachment({
                   playsInline
                 />
               ) : isText && textContent !== null ? (
-                <pre className="max-h-[80vh] overflow-auto p-4 pt-2 text-sm whitespace-pre-wrap wrap-break-word font-mono">
+                <pre className="max-h-[80dvh] overflow-auto p-4 pt-2 text-sm whitespace-pre-wrap wrap-break-word font-mono">
                   {textContent}
                 </pre>
               ) : null}

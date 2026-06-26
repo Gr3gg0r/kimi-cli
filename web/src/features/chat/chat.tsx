@@ -92,6 +92,8 @@ type ChatWorkspaceProps = {
   onForkSession?: (turnIndex: number) => void;
   /** Error message from the session stream */
   errorMessage?: string;
+  /** Send the first queued message immediately */
+  onSendNow?: () => void;
 };
 
 type ToolApproval = NonNullable<LiveMessage["toolCall"]>["approval"];
@@ -124,6 +126,7 @@ export const ChatWorkspace = memo(function ChatWorkspaceComponent({
   onPlanModeChange,
   onForkSession,
   errorMessage,
+  onSendNow,
 }: ChatWorkspaceProps): ReactElement {
   const [blocksExpanded, setBlocksExpanded] = useState(false);
   const [isFilesPanelOpen, setIsFilesPanelOpen] = useState(false);
@@ -350,6 +353,7 @@ export const ChatWorkspace = memo(function ChatWorkspaceComponent({
                       usedTokens={usedTokens}
                       maxTokens={maxTokens}
                       tokenUsage={tokenUsage}
+                      onSendNow={onSendNow}
                     />
                   </div>
                 )}

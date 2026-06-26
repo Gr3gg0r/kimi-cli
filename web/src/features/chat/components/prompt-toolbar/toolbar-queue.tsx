@@ -11,6 +11,7 @@ import {
   ChevronDownIcon,
   ListOrderedIcon,
   PencilIcon,
+  PlayIcon,
   Trash2Icon,
   XIcon,
 } from "lucide-react";
@@ -25,7 +26,7 @@ import { useQueueStore, type QueuedItem } from "../../queue-store";
 
 // ─── Sub-components ──────────────────────────────────────────
 
-function QueueItemRow({ item, isFirst, onEdit }: { item: QueuedItem; isFirst: boolean; onEdit: (id: string) => void }): ReactElement {
+function QueueItemRow({ item, isFirst, onEdit, onSendNow }: { item: QueuedItem; isFirst: boolean; onEdit: (id: string) => void; onSendNow?: () => void }): ReactElement {
   const removeFromQueue = useQueueStore((s) => s.removeFromQueue);
   const moveQueueItemUp = useQueueStore((s) => s.moveQueueItemUp);
 
@@ -34,7 +35,17 @@ function QueueItemRow({ item, isFirst, onEdit }: { item: QueuedItem; isFirst: bo
       <p className="min-w-0 text-xs text-foreground truncate leading-relaxed">
         {item.text}
       </p>
-      <div className="flex items-center gap-0.5 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">
+      <div className="flex items-center gap-0.5 shrink-0 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
+        {isFirst && onSendNow && (
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button variant="ghost" size="icon-sm" className="size-5 text-primary hover:text-primary" onClick={onSendNow}>
+                <PlayIcon className="size-3" />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>Send now</TooltipContent>
+          </Tooltip>
+        )}
         <Tooltip>
           <TooltipTrigger asChild>
             <Button variant="ghost" size="icon-sm" className="size-5" onClick={() => onEdit(item.id)}>
@@ -104,10 +115,12 @@ function EditingItemRow({ item, onDone }: { item: QueuedItem; onDone: () => void
 
 type ToolbarQueuePanelProps = {
   queue: QueuedItem[];
+  onSendNow?: () => void;
 };
 
 export const ToolbarQueuePanel = memo(function ToolbarQueuePanelComponent({
   queue,
+  onSendNow,
 }: ToolbarQueuePanelProps): ReactElement {
   const [editingId, setEditingId] = useState<string | null>(null);
   const handleEditDone = useCallback(() => setEditingId(null), []);
@@ -118,7 +131,7 @@ export const ToolbarQueuePanel = memo(function ToolbarQueuePanelComponent({
         editingId === item.id ? (
           <EditingItemRow key={item.id} item={item} onDone={handleEditDone} />
         ) : (
-          <QueueItemRow key={item.id} item={item} isFirst={idx === 0} onEdit={setEditingId} />
+          <QueueItemRow key={item.id} item={item} isFirst={idx === 0} onEdit={setEditingId} onSendNow={onSendNow} />
         ),
       )}
     </>
@@ -141,14 +154,15 @@ export const ToolbarQueueTab = memo(function ToolbarQueueTabComponent({
       type="button"
       onClick={onToggle}
       className={cn(
-        "flex items-center gap-1.5 h-7 px-2.5 rounded-full text-xs font-medium transition-colors cursor-pointer border",
+        "flex items-center gap-1.5 h-7 px-2.5 rounded-full text-xs font-medium transition-colors cursor-pointer border max-sm:h-6 max-sm:px-2",
         isActive
           ? "bg-secondary text-foreground border-border shadow-sm"
           : "bg-transparent text-muted-foreground border-border/60 hover:text-foreground hover:border-border",
       )}
     >
       <ListOrderedIcon className="size-3" />
-      <span>{count} Queued</span>
+      <span className="max-sm:hidden">{count} Queued</span>
+      <span className="hidden max-sm:inline">{count}</span>
       <ChevronDownIcon
         className={cn(
           "size-3 transition-transform duration-200",

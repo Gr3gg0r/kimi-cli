@@ -583,13 +583,13 @@ export const ToolMediaPreview = ({
             ) : previewPart?.type === "image_url" ? (
               <img
                 alt="Full size preview"
-                className="block max-h-[88vh] w-full object-contain"
+                className="block max-h-[88dvh] w-full object-contain"
                 src={previewPart.url}
                 onError={() => setPreviewError(true)}
               />
             ) : previewPart?.type === "video_url" ? (
               <video
-                className="block max-h-[88vh] w-full object-contain"
+                className="block max-h-[88dvh] w-full object-contain"
                 src={previewPart.url}
                 controls
                 poster={previewPoster ?? undefined}
